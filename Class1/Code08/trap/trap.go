@@ -89,7 +89,7 @@ func trap3(height []int) int {
 	left := make([]int, n)
 	right := make([]int, n)
 
-	for i := 0; i < n; i++ {
+	for i := 1; i < n; i++ {
 		left[i] = max(left[i-1], height[i-1])
 	}
 
@@ -101,6 +101,31 @@ func trap3(height []int) int {
 		short := min(left[i], right[i])
 		if short > height[i] {
 			ans += short - height[i]
+		}
+	}
+
+	return ans
+}
+
+// 尝试最优解
+func trap4(height []int) (ans int) {
+	ans = 0
+	n := len(height)
+	if n == 0 {
+		return ans
+	}
+	arrLeft := make([]int, n)
+	arrRight := make([]int, n)
+	for i, j := 1, n-2; i < n; i++ {
+		arrLeft[i] = max(arrLeft[i-1], height[i-1])
+		arrRight[j] = max(arrRight[j+1], height[j+1])
+		j--
+	}
+
+	for index, val := range height {
+		short := min(arrLeft[index], arrRight[index])
+		if short > val {
+			ans += short - val
 		}
 	}
 
