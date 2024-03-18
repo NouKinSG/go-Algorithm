@@ -69,3 +69,63 @@ func (this *RandommizedSet1) GetRandom() int {
 	index := this.rng.Intn(len(this.arrSlice))
 	return this.arrSlice[index]
 }
+
+type RandomizedSet struct {
+	// 增删改查用 map
+	indexMap map[int]int
+	// 随机存取用 数组(切片)
+	arrSlices []int
+	//随机数生成器
+	rng *rand.Rand
+}
+
+// 构造函数
+func NewRandomizedSet() *RandomizedSet {
+	src := rand.NewSource(time.Now().UnixNano())
+	rg := rand.New(src)
+	return &RandomizedSet{
+		indexMap:  make(map[int]int),
+		arrSlices: []int{},
+		rng:       rg,
+	}
+}
+
+// 插入
+func (this *RandomizedSet) Insert(val int) bool {
+	// 判断有没有，没有再插入
+	if _, ok := this.indexMap[val]; ok {
+		return false
+	}
+
+	// 没有 执行插入
+	this.indexMap[val] = len(this.arrSlices)
+	this.arrSlices = append(this.arrSlices, val)
+	return true
+}
+
+// 删除
+func (this *RandomizedSet) Remove(val int) bool {
+	// 先看看有没有元素，有才删除
+	index, ok := this.indexMap[val]
+	if !ok {
+		return false
+	}
+	// 有，执行删除
+	// 删除步骤，用数组最后一个元素，替换当前元素位置，添加新映射。删除最后一个元素，删除旧映射
+
+	// 获取最后一个元素信息
+	lastIndex := len(this.arrSlices) - 1
+	lastValue := this.arrSlices[lastIndex]
+
+	this.arrSlices[index] = lastValue
+	this.indexMap[lastValue] = index
+	delete(this.indexMap, val)
+	this.arrSlices = this.arrSlices[:lastIndex]
+	return true
+}
+
+// 随机取数
+func (this *RandomizedSet) GetRandom() int {
+	randIndex := this.rng.Intn(len(this.arrSlices))
+	return this.arrSlices[randIndex]
+}
