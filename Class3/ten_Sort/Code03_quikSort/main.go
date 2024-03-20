@@ -2,7 +2,7 @@ package main
 
 import "fmt"
 
-func findAllPrerequisites(prerequisites [][]int, course int) []int {
+func findAllPrerequisites(prerequisites [][]int, numCourses int) []int {
 	graph := make(map[int][]int)
 	for _, p := range prerequisites {
 		graph[p[0]] = append(graph[p[0]], p[1])
@@ -20,8 +20,8 @@ func findAllPrerequisites(prerequisites [][]int, course int) []int {
 		}
 	}
 
-	visited[course] = true
-	dfs(course)
+	visited[numCourses] = true
+	dfs(numCourses)
 	return result
 }
 
