@@ -49,3 +49,53 @@ func findOrder(numCourses int, prerequisites [][]int) []int {
 
 	return order
 }
+
+func findOrder1(numCourses int, prerequisites [][]int) []int {
+	// 入度
+	indegrees := make([]int, numCourses)
+
+	// 从某个课程出发，可以学的课程
+	graph := make([][]int, numCourses)
+
+	// 统计入度,统计学了某个课后 可以学的课程
+	for _, p := range prerequisites {
+		indegrees[p[0]]++
+		graph[p[1]] = append(graph[p[1]], p[0])
+	}
+
+	// 定义 队列
+	queue := []int{}
+
+	// 入度为 0 的入队
+	for index, val := range indegrees {
+		if val == 0 {
+			queue = append(queue, index)
+		}
+	}
+
+	// 存储结果
+	ans := []int{}
+	for len(queue) > 0 {
+		// 出队 放入结果
+		course := queue[0]
+		queue = queue[1:]
+		ans = append(ans, course)
+
+		// 减少相关联的入度
+		for _, val := range graph[course] {
+			indegrees[val]--
+
+			// 入度减为0后，把入度为0的课程号 入队
+			if indegrees[val] == 0 {
+				queue = append(queue, val)
+			}
+		}
+	}
+
+	// 有环
+	if len(ans) == 0 {
+		return []int{}
+	}
+
+	return ans
+}

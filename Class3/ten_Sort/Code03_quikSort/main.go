@@ -4,25 +4,56 @@ import "fmt"
 
 func findAllPrerequisites(prerequisites [][]int, numCourses int) []int {
 	graph := make(map[int][]int)
-	for _, p := range prerequisites {
-		graph[p[0]] = append(graph[p[0]], p[1])
+	// 反转图的构建方向，正确表示依赖关系
+	for _, pre := range prerequisites {
+		graph[pre[1]] = append(graph[pre[1]], pre[0])
 	}
+
 	visited := make(map[int]bool)
 	var result []int
+
+	// DFS函数，用于遍历图
 	var dfs func(int)
-	dfs = func(c int) {
-		for _, pre := range graph[c] {
-			if !visited[pre] {
-				visited[pre] = true
-				result = append(result, pre)
-				dfs(pre)
+	dfs = func(course int) {
+		if visited[course] {
+			return
+		}
+		visited[course] = true
+		for _, next := range graph[course] {
+			dfs(next)
+			// 添加到结果中，如果它还未存在于结果中
+			if !contains(result, next) {
+				result = append(result, next)
 			}
 		}
 	}
 
-	visited[numCourses] = true
-	dfs(numCourses)
+	// 检查结果数组中是否已包含该元素
+	contains := func(slice []int, item int) bool {
+		for _, s := range slice {
+			if s == item {
+				return true
+			}
+		}
+		return false
+	}
+
+	// 对每个可能的起点执行DFS
+	for i := 0; i < numCourses; i++ {
+		dfs(i)
+	}
+
 	return result
+}
+
+// 检查切片中是否包含指定的元素
+func contains(slice []int, item int) bool {
+	for _, s := range slice {
+		if s == item {
+			return true
+		}
+	}
+	return false
 }
 
 func main() {
