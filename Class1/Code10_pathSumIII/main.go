@@ -70,8 +70,3 @@ func pathFromNode(node *TreeNode, Sum int) int {
 
 	return count
 }
-
-func main() {
-	// Your code here
-	a := make(chan int)
-}

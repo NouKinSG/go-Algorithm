@@ -91,7 +91,7 @@ func NewRandomizedSet() *RandomizedSet {
 }
 
 // 插入
-func (this *RandomizedSet) Insert(val int) bool {
+func (this *RandomizedSet) Insert2(val int) bool {
 	// 判断有没有，没有再插入
 	if _, ok := this.indexMap[val]; ok {
 		return false
@@ -104,7 +104,7 @@ func (this *RandomizedSet) Insert(val int) bool {
 }
 
 // 删除
-func (this *RandomizedSet) Remove(val int) bool {
+func (this *RandomizedSet) Remove2(val int) bool {
 	// 先看看有没有元素，有才删除
 	index, ok := this.indexMap[val]
 	if !ok {
@@ -125,7 +125,7 @@ func (this *RandomizedSet) Remove(val int) bool {
 }
 
 // 随机取数
-func (this *RandomizedSet) GetRandom() int {
+func (this *RandomizedSet) GetRandom2() int {
 	randIndex := this.rng.Intn(len(this.arrSlices))
 	return this.arrSlices[randIndex]
 }

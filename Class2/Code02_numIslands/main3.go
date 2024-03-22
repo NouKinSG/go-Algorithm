@@ -1,9 +1,13 @@
 package main
 
+import "sync"
+
 type UnionFind3 struct {
 	root  []int
 	count int
 }
+
+var syn sync.WaitGroup
 
 func NewUnionFind3(grid [][]byte) *UnionFind3 {
 	row := len(grid)
