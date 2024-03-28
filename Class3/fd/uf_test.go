@@ -1,13 +1,16 @@
-package reset
+package fd_test
 
-func numIsland(grid [][]byte) int {
-	ans := 0
-	row, col := len(grid), len(grid[0])
+import "testing"
+
+// 200. 岛屿数量
+func numIslands(grid [][]byte) int {
 	if len(grid) == 0 {
 		return 0
 	}
+	ans := 0
+	row, col := len(grid), len(grid[0])
 	wt := 0
-	uf := NewUnionFind(grid)
+	uf := NewUninoFind(grid)
 
 	for i := 0; i < row; i++ {
 		for j := 0; j < col; j++ {
@@ -22,6 +25,7 @@ func numIsland(grid [][]byte) int {
 					newRow := i + val[0]
 					newCol := j + val[1]
 					if newRow >= 0 && newRow < row && newCol >= 0 && newCol < col && grid[newRow][newCol] == '1' {
+						// 合并
 						uf.union(newRow*col+newCol, i*col+j)
 					}
 				}
@@ -32,29 +36,30 @@ func numIsland(grid [][]byte) int {
 	return ans
 }
 
+// 并查集
 type UnionFind struct {
-	// 存储节点
+	// 集合存储元素
 	root []int
-	// 存储数量
+
+	// 统计个数
 	count int
 }
 
 // 构造函数
-func NewUnionFind(grid [][]byte) *UnionFind {
+func NewUninoFind(grid [][]byte) *UnionFind {
 	row, col := len(grid), len(grid[0])
 	count := row * col
 	root := make([]int, count)
 	for i := range root {
 		root[i] = i
 	}
-
 	return &UnionFind{
 		root:  root,
 		count: count,
 	}
 }
 
-// find，找x的祖先
+// find
 func (this *UnionFind) find(x int) int {
 	if x == this.root[x] {
 		return x
@@ -64,13 +69,24 @@ func (this *UnionFind) find(x int) int {
 	return this.root[x]
 }
 
-// union 合并x，y
+// 合并
 func (this *UnionFind) union(x, y int) {
-	rootX := this.find(x)
-	rootY := this.find(y)
-
+	rootX := this.root[x]
+	rootY := this.root[y]
 	if rootX != rootY {
 		this.root[rootX] = rootY
 		this.count--
 	}
+}
+
+func TestUF(t *testing.T) {
+	grid := [][]byte{
+		{'1', '1', '1', '1', '0'},
+		{'1', '1', '0', '1', '0'},
+		{'1', '1', '0', '0', '0'},
+		{'0', '0', '0', '0', '0'},
+	}
+
+	ans := numIslands(grid)
+	t.Log(ans)
 }
