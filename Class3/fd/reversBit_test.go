@@ -6,7 +6,7 @@ func reverseBits(num uint32) uint32 {
 	var ans uint32 = 0
 	for i := 0; i < 32; i++ {
 		var a uint32 = num & (1 << i)
-		ans = ans + (a << (31 - i))
+		ans = ans + (a<<(31-i))>>i
 		// num = num >> 1
 	}
 	return ans
