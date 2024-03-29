@@ -6,6 +6,9 @@ func lengthOfLIS(nums []int) int {
 	}
 
 	dp := make([]int, len(nums))
+	for i := range dp {
+		dp[i] = 1
+	}
 
 	maxLen := 1
 	for i := 1; i < len(nums); i++ {
