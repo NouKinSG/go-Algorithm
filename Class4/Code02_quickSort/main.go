@@ -1,5 +1,10 @@
 package main
 
+import (
+	"math/rand"
+	"time"
+)
+
 func sortArray(nums []int) []int {
 	QuickSort(nums, 0, len(nums)-1)
 	return nums
@@ -11,7 +16,16 @@ func QuickSort(nums []int, left int, right int) {
 		return
 	}
 
-	// 基准值
+	/*
+		如果
+
+	*/
+
+	rand.Seed(time.Now().UnixNano())
+	pivotIndex := rand.Intn(right-left+1) + left
+	nums[pivotIndex], nums[right] = nums[right], nums[pivotIndex]
+
+	// 基准值, 默认选择 right
 	pivot := nums[right]
 	// 挡板, 挡板用于保证挡板左边的元素都是比 基准值（pivot）小的
 	index := left
