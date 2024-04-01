@@ -57,6 +57,26 @@ func quickSort(arr []int, low, high int) {
 		quickSort(arr, pivot+1, high)
 	}
 }
+func quick(arr []int, left, right int) {
+	if left < right {
+		privot := part(arr, left, right)
+		quick(arr, left, privot-1)
+		quick(arr, privot+1, right)
+	}
+}
+
+func part(arr []int, left, right int) int {
+	privot := arr[right]
+	index := left - 1
+	for j := left; j < right; j++ {
+		if arr[j] < privot {
+			index++
+			arr[index], arr[j] = arr[j], arr[index]
+		}
+	}
+	arr[index+1], arr[right] = arr[right], arr[index+1]
+	return index + 1
+}
 
 func partition(arr []int, low, high int) int {
 	pivot := arr[high]
