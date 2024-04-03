@@ -1,5 +1,7 @@
 package main
 
+import "sync"
+
 type LRUCache struct {
 	// 存东西
 	cache    map[int]*DLinkList
@@ -7,6 +9,7 @@ type LRUCache struct {
 	capacity int
 	head     *DLinkList
 	tail     *DLinkList
+	mu       sync.Mutex
 }
 
 func Constructor(capacity int) LRUCache {
@@ -20,11 +23,13 @@ func Constructor(capacity int) LRUCache {
 		capacity: capacity,
 		head:     head,
 		tail:     tail,
+		mu:       sync.Mutex{},
 	}
 }
 
 func (this *LRUCache) Get(key int) int {
-
+	this.mu.Lock()         // 加锁
+	defer this.mu.Unlock() // 释放锁
 	if node, ok := this.cache[key]; ok {
 		// 使用了，更新
 		this.moveToHead(node)
@@ -36,6 +41,11 @@ func (this *LRUCache) Get(key int) int {
 }
 
 func (this *LRUCache) Put(key int, value int) {
+
+	this.mu.Lock()
+
+	defer this.mu.Unlock()
+
 	// 加入前看看有没有
 	if node, ok := this.cache[key]; ok {
 		// 有，更新val
