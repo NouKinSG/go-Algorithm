@@ -35,4 +35,15 @@ func build(nums []int, start, end int) *TreeNode {
 func Testbinry(t *testing.T) {
 	nums := []int{1, 2, 3, 4, 5, 6, 7}
 	root := binary(nums)
+
+	// 验证 root 是否为 nil
+	if root == nil {
+		t.Errorf("Expected non-nil root, got nil")
+	}
+
+	// 进一步验证 root 的结构和值是否符合预期
+	// ...
+
+	// 其他断言和验证代码
+	// ...
 }
