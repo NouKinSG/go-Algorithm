@@ -32,7 +32,7 @@ func build(nums []int, start, end int) *TreeNode {
 	return root
 }
 
-func Testbinry(t *testing.T) {
+func TestBinry(t *testing.T) {
 	nums := []int{1, 2, 3, 4, 5, 6, 7}
 	root := binary(nums)
 
