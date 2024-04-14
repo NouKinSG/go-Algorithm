@@ -8,6 +8,7 @@ func myPow(x float64, n int) float64 {
 	if n >= 0 {
 		return myquick(x, n)
 	}
+	// sync.Map
 	return 1.0 / myquick(x, n)
 }
 
