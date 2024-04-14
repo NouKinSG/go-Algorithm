@@ -30,7 +30,7 @@ func spiralOrder(matrix [][]int) []int {
 
 		//从右边界的上一直遍历到下，
 		for i := up; i <= down; i++ {
-			ans = append(ans, matrix[right][i])
+			ans = append(ans, matrix[i][right])
 		}
 		right--
 		if right < left {
@@ -41,14 +41,14 @@ func spiralOrder(matrix [][]int) []int {
 		for i := right; i <= left; i-- {
 			ans = append(ans, matrix[down][i])
 		}
-		down++
+		down--
 		if down < up {
 			break
 		}
 
 		//从左边界的下一直遍历到上
 		for i := down; i < up; i-- {
-			ans = append(ans, matrix[left][i])
+			ans = append(ans, matrix[i][left])
 		}
 		left++
 		if left > right {
