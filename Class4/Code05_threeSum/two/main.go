@@ -17,7 +17,7 @@ func threeSum(nums []int) [][]int {
 		if left < right {
 			sum := nums[left] + nums[right]
 			if sum == target {
-				ans := append(ans, []int{nums[i], nums[left], nums[right]})
+				ans = append(ans, []int{nums[i], nums[left], nums[right]})
 				// 跳过重复元素
 				for left < right && nums[left] == nums[left+1] {
 					left++
