@@ -9,7 +9,6 @@ package main
 // 如果 i = flowe 最后一个字符时，返回，或者 第 i 个 字符与其他字段不等时，返回
 
 // 14. 最长公共前缀
-
 func longestCommonPrefix(strs []string) string {
 	if len(strs) == 0 {
 		return ""
