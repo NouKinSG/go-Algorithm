@@ -12,7 +12,7 @@ func premute(nums []int) [][]int {
 
 func backtrack(nums []int, ans *[][]int, cur []int, used []bool) {
 	if len(cur) == len(nums) {
-		// 复制 cur，因为切片是引用类型
+		// 复制 cur，因为切片是引用类型,不能使用cur
 		temp := make([]int, len(cur))
 		copy(temp, cur)
 		*ans = append(*ans, temp)
