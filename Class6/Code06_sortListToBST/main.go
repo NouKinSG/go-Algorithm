@@ -33,11 +33,6 @@ func sortedListToBST(head *ListNode) *TreeNode {
 	return root
 }
 
-// buildTree 递归构建BST
-func buildBST(start *ListNode, end *ListNode) *TreeNode {
-
-}
-
 // 使用快慢指针找到链表中间节点的前一个节点
 func findMidPre(head *ListNode) *ListNode {
 	var pre *ListNode
