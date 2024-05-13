@@ -100,3 +100,23 @@ func maxPathSum3(root *TreeNode) int {
 	maxGain(root)
 	return ans
 }
+
+func maxPathSum4(root *TreeNode) int {
+	ans := math.MinInt32
+	var maxGain func(*TreeNode) int
+	maxGain = func(node *TreeNode) int {
+		if node == nil {
+			return 0
+		}
+		// 递归左右
+		leftGain := max(maxGain(node.Left), 0)
+		rightGain := max(maxGain(node.Right), 0)
+
+		// 节点最大路径和
+		priceNewPath := node.Val + leftGain + rightGain
+		ans = max(ans, priceNewPath)
+		return node.Val + max(leftGain, rightGain)
+	}
+	maxGain(root)
+	return ans
+}

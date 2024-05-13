@@ -26,3 +26,15 @@ func Bubble(arr []int) {
 		}
 	}
 }
+func Bubble2(arr []int) {
+	if len(arr) < 2 {
+		return
+	}
+	for i := 0; i < len(arr); i++ {
+		for j := 1; j < len(arr)-i; j++ {
+			if arr[j] < arr[j-1] {
+				arr[j], arr[j-1] = arr[j-1], arr[j]
+			}
+		}
+	}
+}
