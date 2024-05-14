@@ -43,3 +43,39 @@ func QuickSort(nums []int, left int, right int) {
 	QuickSort(nums, left, lt-1)
 	QuickSort(nums, gt+1, right)
 }
+
+// leetcode 快速排序 https://leetcode-cn.com/problems/sort-an-array/
+func sortArray2(nums []int) []int {
+	rand.Seed(time.Now().Unix())
+	QuickSort2(nums, 0, len(nums)-1)
+	return nums
+}
+func QuickSort2(nums []int, left, right int) {
+	// 递归终止条件
+	if left >= right {
+		return
+	}
+
+	// 小于基准，大于基准
+	lt, gt := left, right
+	pivotIndex := rand.Intn(right-left+1) + left
+	nums[left], nums[pivotIndex] = nums[pivotIndex], nums[left]
+	pivot := nums[left]
+
+	// 左边界的下一个开始遍历数组
+	i := left + 1
+	for i <= gt {
+		if nums[i] < pivot {
+			nums[i], nums[lt] = nums[lt], nums[i]
+			lt++
+			i++
+		} else if nums[i] > pivot {
+			nums[i], nums[gt] = nums[gt], nums[i]
+			gt--
+		} else {
+			i++
+		}
+	}
+	QuickSort2(nums, left, lt-1)
+	QuickSort2(nums, gt+1, right)
+}
