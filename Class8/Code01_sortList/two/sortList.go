@@ -1,9 +1,4 @@
-package one
-
-//148. 排序链表
-// Step 1: Split the list into two halves.
-// Step 2: Recursively sort each half.
-// Step 3: Merge the sorted halves.
+package two
 
 type ListNode struct {
 	Val  int
@@ -19,32 +14,35 @@ func sort(head *ListNode, tail *ListNode) *ListNode {
 		return head
 	}
 	if head.Next == tail {
-		head.Next = nil
 		return head
 	}
-
-	slow, fast := head, head
+	slow := head
+	fast := head
 	for fast != tail {
 		slow = slow.Next
 		fast = fast.Next
-		if fast != tail {
+		if fast.Next != nil {
 			fast = fast.Next
 		}
 	}
 	mid := slow
-	return merge(sort(head, mid), sort(mid, tail))
+	return merge(sort(head, mid), sort(mid, nil))
 }
-
-// Step 3: Merge the sorted halves.
 func merge(head1, head2 *ListNode) *ListNode {
+	if head1 == nil {
+		return head2
+	}
+	if head2 == nil {
+		return head1
+	}
 	res := &ListNode{}
 	cur := res
 	for head1 != nil && head2 != nil {
 		if head1.Val < head2.Val {
-			cur.Next = head2
+			cur.Next = head1
 			head1 = head1.Next
 		} else {
-			cur.Next = head1
+			cur.Next = head2
 			head2 = head2.Next
 		}
 		cur = cur.Next
