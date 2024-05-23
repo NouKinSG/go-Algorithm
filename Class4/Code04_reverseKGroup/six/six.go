@@ -1,7 +1,7 @@
-package main
+package six
 
 type ListNode struct {
-	Val  int
+	val  int
 	Next *ListNode
 }
 
@@ -11,9 +11,10 @@ func reverseKGroup(head *ListNode, k int) *ListNode {
 	if end == nil {
 		return head
 	}
-
+	// 凑齐了一组
 	head = end
 	reverse(start, end)
+	// 反转后，上一组结尾，是start
 	lastEnd := start
 	for lastEnd.Next != nil {
 		start = lastEnd.Next
@@ -28,7 +29,7 @@ func reverseKGroup(head *ListNode, k int) *ListNode {
 	return head
 }
 
-// 数 k 个返回。
+// 数 k 个返回
 func getKGroupEnd(start *ListNode, k int) *ListNode {
 	for k > 1 && start != nil {
 		start = start.Next
@@ -37,13 +38,12 @@ func getKGroupEnd(start *ListNode, k int) *ListNode {
 	return start
 }
 
+// 反转
 func reverse(start, end *ListNode) {
 	end = end.Next
-	cur := start
-
 	var pre *ListNode
+	cur := start
 	var next *ListNode
-
 	for cur != end {
 		next = cur.Next
 		cur.Next = pre
