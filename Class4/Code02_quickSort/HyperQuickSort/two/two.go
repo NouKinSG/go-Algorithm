@@ -24,13 +24,13 @@ func QuickSort(nums []int, left, right int) {
 	pivot := nums[left]
 
 	i := lt + 1
-	for i <= right {
+	for i <= gt {
 		if nums[i] < pivot {
 			nums[i], nums[lt] = nums[lt], nums[i]
 			lt++
 			i++
 		} else if nums[i] > right {
-			nums[i], nums[right] = nums[right], nums[i]
+			nums[i], nums[gt] = nums[gt], nums[i]
 			gt--
 		} else {
 			i++

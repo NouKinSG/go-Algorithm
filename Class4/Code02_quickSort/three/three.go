@@ -22,7 +22,7 @@ func quickSort(nums []int, left, right int) {
 	pivot := nums[left]
 
 	i := lt + 1
-	for i <= right {
+	for i <= gt {
 		if nums[i] < pivot {
 			nums[i], nums[lt] = nums[lt], nums[i]
 			lt++
