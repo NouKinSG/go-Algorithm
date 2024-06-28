@@ -47,3 +47,17 @@ func TestPathSum(t *testing.T) {
 	}
 	t.Log(pathSum(root, 8))
 }
+
+func TestNumIslands(t *testing.T) {
+	// 测试NumIslands
+
+	// 岛屿数量
+	grid := [][]byte{
+		{'1', '1', '1', '1', '0'},
+		{'1', '1', '0', '1', '0'},
+		{'1', '1', '0', '0', '0'},
+		{'0', '0', '0', '0', '0'},
+	}
+	t.Log(numIslands(grid))
+
+}
