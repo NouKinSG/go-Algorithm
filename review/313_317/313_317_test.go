@@ -61,3 +61,13 @@ func TestNumIslands(t *testing.T) {
 	t.Log(numIslands(grid))
 
 }
+
+func TestMinPathSum(t *testing.T) {
+	// 测试最小路径和
+	grid := [][]int{
+		{1, 3, 1},
+		{1, 5, 1},
+		{4, 2, 1},
+	}
+	t.Log(minPathSum(grid))
+}
