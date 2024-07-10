@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>会话详情</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .container {
+            margin-top: 20px;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header h2 {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h2>会话详情</h2>
+    </div>
+    <table>
+        <thead>
+        <tr>
+            <th>MsgId</th>
+            <th>角色</th>
+            <th>会话</th>
+            <th>赞踩</th>
+            <th>时间</th>
+        </tr>
+        </thead>
+        <tbody id="session-details">
+        <!-- 会话详情数据将通过JavaScript填充 -->
+        </tbody>
+    </table>
+</div>
+
+<script>
+    const sessionDetails = [
+        {
+            msgId: '1709866168166230',
+            role: '用户',
+            content: '参考范围：20~50 单位/L淋巴细胞绝对值 2.11参考范围：1.1~3.2 单位*10~9/L单核细胞相对值 54参考范围：3~10 单位%单核细胞绝对值 0.29参考范围：0.1~0.6 单位*10~9/L嗜酸细胞相对值 2.0参考范围：0.4~8 单位',
+            likeStatus: '',
+            timestamp: '2024-03-08 10:49:28'
+        },
+        {
+            msgId: '1709866168170460',
+            role: 'AI',
+            content: '你好， 我们很高兴能为你提供帮助。由于我们是一个英文网站，所以我们需要您的中文信息。如果您愿意，请把您的中文信息发布在此处，我们将尽力为您提供帮助。',
+            likeStatus: '',
+            timestamp: '2024-03-08 10:49:28'
+        }
+    ];
+
+    const sessionTable = document.getElementById('session-details');
+
+    sessionDetails.forEach(detail => {
+        const row = document.createElement('tr');
+
+        const msgIdCell = document.createElement('td');
+        msgIdCell.textContent = detail.msgId;
+        row.appendChild(msgIdCell);
+
+        const roleCell = document.createElement('td');
+        roleCell.textContent = detail.role;
+        row.appendChild(roleCell);
+
+        const contentCell = document.createElement('td');
+        contentCell.textContent = detail.content;
+        row.appendChild(contentCell);
+
+        const likeStatusCell = document.createElement('td');
+        likeStatusCell.textContent = detail.likeStatus;
+        row.appendChild(likeStatusCell);
+
+        const timestampCell = document.createElement('td');
+        timestampCell.textContent = detail.timestamp;
+        row.appendChild(timestampCell);
+
+        sessionTable.appendChild(row);
+    });
+</script>
+
+</body>
+</html>
