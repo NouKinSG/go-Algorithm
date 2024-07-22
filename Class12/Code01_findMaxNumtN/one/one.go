@@ -25,7 +25,7 @@ func getMaxNumLTN(digits []int, n int) int {
 		m[digits[i]] = struct{}{}
 	}
 
-	// 3. 从高位开始遍历了
+	// 3. 从高位开始遍历了   // TODO  这里的 ansArr 长度应该和 ndigtis对齐，因为是小于等于n的最大数
 	ansArr := make([]int, len(ndigits))
 	for i := len(ndigits) - 1; i >= 0; i-- {
 		if i > 0 {
