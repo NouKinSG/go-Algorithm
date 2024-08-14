@@ -6,21 +6,25 @@ import (
 	"os"
 	"os/signal"
 	"syscall"
+	"time"
 )
 
 var closeChan chan struct{}
 var sigs chan os.Signal
 
 func init() {
-	//类似于auto
 	sigs = make(chan os.Signal)
-	//具体类型初始化
 	closeChan = make(chan struct{})
 	signal.Notify(sigs, syscall.SIGINT, syscall.SIGTERM)
-	//可以理解为C++ 的匿名函数，或者js的匿名函数，此处通过go原语启动一个协程并行执行
+
+	// 启动一个 goroutine 监听信号
 	go func() {
-		sig := <-sigs
-		fmt.Println("receive signal is ", sig)
+		select {
+		case sig := <-sigs:
+			fmt.Println("Received signal:", sig)
+		case <-time.After(10 * time.Second): // 在 10 秒后自动关闭通道
+			fmt.Println("No signal received, closing after timeout")
+		}
 		close(closeChan)
 		message.ConsumerInst().Exit()
 		message.ProducerInst().Exit()
@@ -31,6 +35,7 @@ func main() {
 
 	fmt.Println("Main Process begin!")
 	<-closeChan
+	fmt.Println("main closeChan after!")
 	message.ConsumerInst().Join()
 	message.ProducerInst().Join()
 	fmt.Println("Main Process exit!")
