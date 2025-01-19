@@ -22,3 +22,15 @@ func main() {
 	//创建链表
 
 }
+
+func reverseList2(head *Node) *Node {
+	var pre *Node
+	var next *Node
+	for head != nil {
+		next = head.next
+		head.next = pre
+		pre = head
+		head = next
+	}
+	return pre
+}
